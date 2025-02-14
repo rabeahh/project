@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffccdc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .hidden {
+            display: none;
+        }
+        .button {
+            background-color: #ff4081;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .button:hover {
+            background-color: #e91e63;
+        }
+        .image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+        /* Happy-Bild */
+        .happy-image {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        /* Herzregen */
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            color: red;
+            top: -50px;
+            animation: fall 3s linear forwards;
+            z-index: 999;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        /* YAAAAAAY Text */
+        #yayText {
+            display: none;
+            position: fixed;
+            top: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            font-weight: bold;
+            color: #efedea;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            z-index: 1001;
+            text-shadow: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="page1">
+        <h1>Hey Toby! 💕</h1>
+        <p>I've got a little question for you... but first, click below!</p>
+        <button class="button" onclick="showSecondPage()">Click Here</button>
+    </div>
+    
+    <div class="container hidden" id="page2">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <img src="valentine.jpg" alt="Cute Valentine Image" class="image">
+        <div>
+            <button class="button" onclick="yesClicked()">Yes! <3 </button>
+            <button class="button" onclick="alert('Oh no! 😢 But I still adore you!')">No 😭</button>
+        </div>
+    </div>
+
+    <!-- Happy-Bild -->
+    <img id="happyImage" src="happy_couple.jpeg" alt="Happy Moment" class="happy-image">
+
+    <!-- YAAAAAAY Text -->
+    <div id="yayText">YAAAAAAY!!! 🎉💖</div>
+    
+    <script>
+        function showSecondPage() {
+            document.getElementById("page1").classList.add("hidden");
+            document.getElementById("page2").classList.remove("hidden");
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.fontSize = Math.random() * 30 + 20 + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        function startHeartRain() {
+            setInterval(createHeart, 200);
+        }
+
+        function yesClicked() {
+            document.getElementById("happyImage").style.display = "block"; // Happy-Bild anzeigen
+            document.getElementById("yayText").style.display = "block"; // YAAAAAAY Text anzeigen
+            startHeartRain(); // Herzregen aktivieren
+        }
+    </script>
+</body>
+</html>
